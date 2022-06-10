@@ -1,6 +1,6 @@
 package admin;
 
-import services.ProductService;
+import services.CategoryService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +15,7 @@ public class DeleteCategoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-        ProductService.getInstance().deleteCategory(id);
+        CategoryService.getInstance().deleteCategory(id);
         resp.sendRedirect("/admin/products");
     }
 }

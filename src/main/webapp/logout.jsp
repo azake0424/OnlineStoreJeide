@@ -13,7 +13,7 @@
     httpSession.removeAttribute("type");
     httpSession.setMaxInactiveInterval(0);
     httpSession.invalidate();
-    response.sendRedirect("index.jsp");
+    response.sendRedirect("main.jsp");
 %>
 </body>
 </html>

@@ -1,3 +1,6 @@
+import models.CategoryModel;
+import services.CategoryService;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -8,6 +11,14 @@ import java.util.List;
 
 @WebServlet("/CartServlet")
 public class CartServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<CategoryModel> categories = CategoryService.getInstance().getCategories();
+        req.setAttribute("categories", categories);
+        req.getRequestDispatcher("cart.jsp").forward(req, resp);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");

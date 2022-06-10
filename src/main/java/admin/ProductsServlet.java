@@ -3,6 +3,7 @@ package admin;
 import models.CategoryModel;
 import models.ProductModel;
 import services.ProductService;
+import services.CategoryService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +18,7 @@ public class ProductsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<ProductModel> productModelList = ProductService.getInstance().getProducts();
-        List<CategoryModel> categoryModelsList = ProductService.getInstance().getCategories();
+        List<CategoryModel> categoryModelsList = CategoryService.getInstance().getCategories();
         req.setAttribute("products", productModelList);
         req.setAttribute("categories", categoryModelsList);
         req.getRequestDispatcher("/admin/products.jsp").forward(req, resp);

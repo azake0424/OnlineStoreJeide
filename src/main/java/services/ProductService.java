@@ -6,13 +6,9 @@ import models.ProductModel;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletException;
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.net.ConnectException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ProductService {
@@ -41,28 +37,6 @@ public class ProductService {
             e.printStackTrace();
         }
         return connection;
-    }
-
-    /**
-     * returns categories from db
-     */
-    public List<CategoryModel> getCategories() {
-        List<CategoryModel> categories = new ArrayList<>();
-        String sql = "SELECT * FROM categories ORDER BY id";
-        try {
-            Connection connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                categories.add(new CategoryModel(id, name));
-            }
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return categories;
     }
 
     /**
@@ -117,18 +91,7 @@ public class ProductService {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                ProductModel productModel = new ProductModel();
-                productModel.id = resultSet.getInt("id");
-                productModel.name = resultSet.getString("name");
-                productModel.type = resultSet.getString("type");
-                productModel.article = resultSet.getString("article");
-                productModel.brand = resultSet.getString("brand");
-                productModel.size = resultSet.getString("size");
-                productModel.description = resultSet.getString("description");
-                productModel.price = resultSet.getInt("price");
-                productModel.image = resultSet.getString("image");
-                productModel.categoryId = resultSet.getInt("category_id");
-                productModel.amount = resultSet.getInt("amount");
+                ProductModel productModel = this.createProductModel(resultSet);
                 products.add(productModel);
             }
             statement.close();
@@ -137,6 +100,120 @@ public class ProductService {
             e.printStackTrace();
         }
         return products;
+    }
+
+    /**
+     * returns products by category id
+     * @param categoryId
+     * @return
+     */
+    public List<ProductModel> getProductsByCategoryId(int categoryId) {
+        List<ProductModel> products = new ArrayList<>();
+        String sql = "SELECT * FROM product WHERE category_id = ?";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, categoryId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ProductModel productModel = this.createProductModel(resultSet);
+                products.add(productModel);
+            }
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    /**
+     *
+     */
+    public List<String> getTypes() {
+        List<String> types = new ArrayList<>();
+        String sql = "SELECT DISTINCT type FROM product";
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                types.add(resultSet.getString("type"));
+            }
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return types;
+    }
+
+    /**
+     * returns products by filter
+     * @param categoryId
+     * @param to
+     * @param from
+     * @param type
+     * @param size
+     * @return
+     */
+    public List<ProductModel> getProductsByFilter(int categoryId, int from, int to, String type, String size) {
+        String sql = "SELECT * FROM product WHERE";
+        if (categoryId != 0) {
+            sql += " category_id = " + categoryId + " AND";
+        }
+        if (from != 0) {
+            sql += " price >= " + from + " AND";
+        }
+        if (to != 0) {
+            sql += " price <= " + to + " AND";
+        }
+        if (type != null) {
+            sql += " type LIKE '%" + type + "%' AND";
+        }
+        if (size != null) {
+            sql += " size LIKE '%" + size + "%' AND";
+        }
+        sql = sql.substring(0, sql.lastIndexOf(" "));
+        System.out.println(sql);
+        List<ProductModel> products = new ArrayList<>();
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                products.add(createProductModel(resultSet));
+            }
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    /**
+     * returns product by id
+     * @param id
+     * @return
+     */
+    public ProductModel getProductById(int id) {
+        ProductModel product = new ProductModel();
+        String sql = "SELECT * FROM product WHERE id = ? LIMIT 1";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                product = createProductModel(resultSet);
+            }
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return product;
     }
 
     /**
@@ -158,18 +235,25 @@ public class ProductService {
     }
 
     /**
-     * @param id
+     *
+     * @param resultSet
+     * @return
+     * @throws SQLException
      */
-    public void deleteCategory(int id) {
-        String sql = "DELETE FROM categories WHERE id = ?";
-        try {
-            Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    private ProductModel createProductModel(ResultSet resultSet) throws SQLException {
+        ProductModel productModel = new ProductModel();
+        productModel.id = resultSet.getInt("id");
+        productModel.name = resultSet.getString("name");
+        productModel.type = resultSet.getString("type");
+        productModel.article = resultSet.getString("article");
+        productModel.brand = resultSet.getString("brand");
+        productModel.size = resultSet.getString("size");
+        productModel.description = resultSet.getString("description");
+        productModel.price = resultSet.getInt("price");
+        productModel.image = resultSet.getString("image");
+        productModel.categoryId = resultSet.getInt("category_id");
+        productModel.amount = resultSet.getInt("amount");
+        return productModel;
     }
+
 }

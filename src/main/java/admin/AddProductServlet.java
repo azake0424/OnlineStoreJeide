@@ -2,6 +2,7 @@ package admin;
 
 import com.google.gson.Gson;
 import models.CategoryModel;
+import services.CategoryService;
 import services.ProductService;
 
 import javax.servlet.ServletException;
@@ -19,7 +20,7 @@ public class AddProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<CategoryModel> categories = ProductService.getInstance().getCategories();
+        List<CategoryModel> categories = CategoryService.getInstance().getCategories();
         req.setAttribute("categories", categories);
         req.getRequestDispatcher("/admin/add.jsp").forward(req, resp);
     }
@@ -32,7 +33,7 @@ public class AddProductServlet extends HttpServlet {
      * @throws IOException
      */
     public void getCategories(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException  {
-        List<CategoryModel> categories = ProductService.getInstance().getCategories();
+        List<CategoryModel> categories = CategoryService.getInstance().getCategories();
         String json = new Gson().toJson(categories);
         res.setContentType("application/json");
         res.setCharacterEncoding("UTF-8");
@@ -44,7 +45,7 @@ public class AddProductServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<CategoryModel> categories = ProductService.getInstance().getCategories();
+        List<CategoryModel> categories = CategoryService.getInstance().getCategories();
         request.setAttribute("categories", categories);
 
         HttpSession session = request.getSession(true);

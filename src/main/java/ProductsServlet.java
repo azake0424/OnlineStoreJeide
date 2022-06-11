@@ -24,8 +24,13 @@ public class ProductsServlet extends HttpServlet {
 
         int categoryId = 0;
         if (req.getParameter("category_id") != null) {
-            categoryId = Integer.valueOf(req.getParameter("category_id"));
+            try {
+                categoryId = Integer.valueOf(req.getParameter("category_id"));
+            } catch (NumberFormatException e) {
+                categoryId = 0;
+            }
         }
+
         int to = 0;
         int from = 0;
         if (req.getParameter("range") != null && req.getParameter("range") != "") {

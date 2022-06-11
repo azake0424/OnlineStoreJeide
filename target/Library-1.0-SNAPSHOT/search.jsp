@@ -8,7 +8,7 @@
 <body>
 <%@include file="includes/navbar.jsp"%>
 <div class="container text-center">
-    <h2 class="my-5">Результаты поиска</h2>
+    <h2 class="my-5">Search results</h2>
     <hr>
     <div class="row">
         <sql:query var="products" dataSource="jdbc/testdb">
@@ -25,8 +25,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><c:out value="${product.name}"/></h5>
                     <p class="card-text"><c:out value="${product.price}"/> ₸</p>
-                    <a href="/product?product_id=<c:out value="${product.id}"/>" class="btn btn-primary">Смотреть
-                        подробнее</a>
+                    <a href="/product?product_id=<c:out value="${product.id}"/>" class="btn btn-primary">see more details</a>
                 </div>
             </div>
         </c:forEach>
@@ -35,17 +34,20 @@
 <div class="container-fluid p-5">
     <div class="row">
         <div class="col">
-            <p>О компании</p>
-            <p>lorem ipsum by students Astana IT University</p>
+            <p>About company</p>
+            <p>Jeide by students Astana IT University</p>
         </div>
         <div class="col">
-            <p>Контакты</p>
-            <p>z.ali@astanait.edu.kz</p>
-            <p>z.ali@astanait.edu.kz</p>
+            <p>Contacts</p>
+            <p>Z.Ali@astanait.edu.kz</p>
+            <p>M.Mukiyat@astanait.edu.kz</p>
+            <p>A.Nurlanova@astanait.edu.kz</p>
+            <p>E.Kasim@astanait.edu.kz</p>
+
             <p>87007007070</p>
         </div>
         <div class="col"><a href="/"><img style="margin-top: -50px" src="images/jeide.png" width="100px"></a></div>
-        <div class="col"><p>Способы оплаты</p>
+        <div class="col"><p>Payment method</p>
             <img src="images/visa.png" width="50" alt="">
             <img src="images/mastercard.png" width="50" alt="">
         </div>

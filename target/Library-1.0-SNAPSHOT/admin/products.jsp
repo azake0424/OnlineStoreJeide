@@ -69,9 +69,9 @@
                     </table>
                 </div>
                 <!-- table container -->
-                <button class="btn btn-primary btn-block text-uppercase mb-3">
-                    Add new category (NOT IMPLEMENTED)
-                </button>
+                <a
+                        href="/admin/AddCategory"
+                        class="btn btn-primary btn-block text-uppercase mb-3">Add new category</a>
             </div>
         </div>
     </div>

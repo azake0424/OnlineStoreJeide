@@ -79,6 +79,45 @@ public class ProductService {
         return 0;
     }
 
+
+    public int insertCategory(String catname) {
+        String sql = "insert into categories(name) values(?)";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, catname);
+
+            if (preparedStatement.executeUpdate() > 0) {
+                return 1;
+            }
+            connection.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+
+    public int insertOrder(int user_id, int product_id) {
+        String sql = "insert into order_details(user_id, product_id) values(?, ?)";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, user_id);
+            preparedStatement.setInt(2, product_id);
+
+            if (preparedStatement.executeUpdate() > 0) {
+                return 1;
+            }
+            connection.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     /**
      *
      * @return
@@ -100,6 +139,33 @@ public class ProductService {
             e.printStackTrace();
         }
         return products;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public List<ProductModel> getProductsBySearch(String name) {
+        List<ProductModel> searchProducts = new ArrayList<>();
+        String sql = "SELECT * FROM product WHERE lower(name) LIKE lower(?) OR lower(brand) LIKE lower(?) OR lower(type) like lower(?)";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, name);
+            preparedStatement.setString(3, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ProductModel productModel = this.createProductModel(resultSet);
+                searchProducts.add(productModel);
+            }
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return searchProducts;
     }
 
     /**
@@ -193,6 +259,29 @@ public class ProductService {
     }
 
     /**
+     *
+     * @return
+     */
+    public List<ProductModel> getProductsBySort() {
+        List<ProductModel> sortProducts = new ArrayList<>();
+        String sql = "SELECT * FROM product ORDER by id DESC";
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                ProductModel productModel = this.createProductModel(resultSet);
+                sortProducts.add(productModel);
+            }
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sortProducts;
+    }
+
+    /**
      * returns product by id
      * @param id
      * @return
@@ -222,6 +311,20 @@ public class ProductService {
      */
     public void deleteProduct(int id) {
         String sql = "DELETE FROM product WHERE id = ?";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteProductFromBasket(int id) {
+        String sql = "DELETE FROM order_details WHERE order_id = ?";
         try {
             Connection connection = getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);

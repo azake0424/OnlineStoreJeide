@@ -81,7 +81,16 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>SearchServlet</servlet-name>
-        <url-pattern>/SearchServlet</url-pattern>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>BasketServlet</servlet-name>
+        <servlet-class>BasketServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BasketServlet</servlet-name>
+        <url-pattern>/addtocart</url-pattern>
+    </servlet-mapping>
 </web-app>

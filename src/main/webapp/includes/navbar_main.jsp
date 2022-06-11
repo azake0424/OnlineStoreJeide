@@ -33,14 +33,17 @@
   </div>
   <div class="row align-items-center py-3 px-xl-5">
     <div class="col-lg-3 d-none d-lg-block">
-      <a href="" class="text-decoration-none">
-        <div class="m-0 display-5" ><img src="images/jeide.png" alt="" width="200px"></div>
+      <a href="/" class="text-decoration-none">
+        <div  style="position: relative"><img src="images/jeide.png" width="200"></div>
       </a>
     </div>
     <div class="col-lg-6 col-6 text-left">
-      <form action="">
+      <form  action="/search" method="post">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for products">
+          <div id="danger-alert" class="alert alert-danger" style="display: none">
+            Заполните поле
+          </div>
+          <input type="text" class="form-control" id="searchtext" name="searchtext" placeholder="Search for products">
           <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
@@ -54,9 +57,10 @@
         <i class="fas fa-heart text-primary"></i>
         <span class="badge">0</span>
       </a>
+
       <a href="" class="btn border">
         <i class="fas fa-shopping-cart text-primary"></i>
-        <span class="badge">0</span>
+          <span class="badge">0</span>
       </a>
     </div>
   </div>
@@ -100,11 +104,11 @@
           <div class="navbar-nav mr-auto py-0">
             <a href="/" class="nav-item nav-link active">Home</a>
             <a href="/products" class="nav-item nav-link">Shop</a>
-            <a href="contact.html" class="nav-item nav-link">Contact</a>
+            <a href="contact.jsp" class="nav-item nav-link">Contact</a>
           </div>
           <div class="navbar-nav ml-auto py-0">
             <c:if test="${sessionScope.email != null}">
-              <a href="/profile" class="nav-item nav-link">Profile</a>
+              <a href="/profile" class="nav-item nav-link">Cart</a>
               <a href="/logout.jsp" class="nav-item nav-link">Logout</a>
             </c:if>
             <c:if test="${sessionScope.email == null}">
@@ -117,22 +121,20 @@
       <div id="header-carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active" style="height: 410px;">
-            <img class="img-fluid" src="img/carousel-1.jpg" alt="Image">
+            <img class="img-fluid" src="images/image%202.png" alt="Image">
             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
               <div class="p-3" style="max-width: 700px;">
-                <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
                 <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
-                <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                <a href="/products" class="btn btn-light py-2 px-3">Shop Now</a>
               </div>
             </div>
           </div>
           <div class="carousel-item" style="height: 410px;">
-            <img class="img-fluid" src="img/carousel-2.jpg" alt="Image">
+            <img class="img-fluid" src="img/carousel-1.jpg" alt="Image">
             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
               <div class="p-3" style="max-width: 700px;">
-                <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
                 <h3 class="display-4 text-white font-weight-semi-bold mb-4">Reasonable Price</h3>
-                <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                <a href="/products" class="btn btn-light py-2 px-3">Shop Now</a>
               </div>
             </div>
           </div>

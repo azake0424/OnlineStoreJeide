@@ -22,10 +22,10 @@
                     cache: false,
                     success: function (data) {
                         if (data === 'True') {
-                            alert("Регистрация прошла успешно!");
+                            alert("your account has been registered successfully");
                             window.location.href = "main.jsp";
                         } else {
-                            alert("Ошибка!");
+                            document.getElementById("danger-alert").style.display = "block";
                         }
                     }
                 });
@@ -40,24 +40,27 @@
     <div class="row px-xl-5">
         <div class="col-12">
             <div class="text-center mb-4">
-                <h2 class="section-title px-5"><span class="px-2">Логин</span></h2>
+                <h2 class="section-title px-5"><span class="px-2">Registration</span></h2>
             </div>
         </div>
         <div class="col-4 offset-4">
             <form>
                 <div class="input-group">
-                    <input type="email" placeholder="Email" class="form-control" id="email">
+                    <div id="danger-alert" class="alert alert-danger" style="display: none">
+                        Login or password is invalid
+                    </div>
+                    <input type="email" autocomplete="off" placeholder="Email" class="form-control" id="email">
                 </div>
                 <br>
                 <div class="input-group">
-                    <input type="text" placeholder="Name" class="form-control" id="fio">
+                    <input type="text" autocomplete="off" placeholder="Name" class="form-control" id="fio">
                 </div>
                 <br>
                 <div class="input-group">
-                    <input type="password" placeholder="Password" class="form-control" id="password">
+                    <input type="password" autocomplete="off" placeholder="Password" class="form-control" id="password">
                 </div>
                 <br>
-                <button type="submit" id="adding" class="btn btn-primary btn-block border-0 py-3">Регистрация</button>
+                <button type="submit" id="adding" class="btn btn-primary btn-block border-0 py-3">Register</button>
             </form>
         </div>
     </div>

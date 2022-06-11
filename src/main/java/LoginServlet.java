@@ -35,6 +35,7 @@ public class LoginServlet extends HttpServlet {
         session.setAttribute("fullName", user.fullName);
         session.setAttribute("isAdmin", user.isAdmin);
         session.setAttribute("id", user.id);
+        request.setAttribute("id", user.id );
         response.getWriter().print("True");
     }
 }

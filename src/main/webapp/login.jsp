@@ -20,7 +20,7 @@
                     cache: false,
                     success: function (data) {
                         if (data === 'True') {
-                            window.location.href = "profile.jsp";
+                            window.location.href = "/";
                         } else {
                             document.getElementById("danger-alert").style.display = "block";
                         }
@@ -38,24 +38,24 @@
     <div class="row px-xl-5">
         <div class="col-12">
             <div class="text-center mb-4">
-                <h2 class="section-title px-5"><span class="px-2">Логин</span></h2>
+                <h2 class="section-title px-5"><span class="px-2">Login</span></h2>
             </div>
         </div>
 
         <div class="col-4 offset-4">
             <form >
                 <div id="danger-alert" class="alert alert-danger" style="display: none">
-                    Неправильный логин или пароль
+                    Login or password is invalid
                 </div>
                 <div class="input-group">
-                    <input type="email" placeholder="Email" class="form-control" id="email">
+                    <input type="email" autocomplete="off" placeholder="Email" class="form-control" id="email">
                 </div>
                 <br>
                 <div class="input-group">
-                    <input type="password" placeholder="Password" class="form-control" id="password">
+                    <input type="password" autocomplete="off" placeholder="Password" class="form-control" id="password">
                 </div>
                 <br>
-                <button type="submit" id="login" class="btn btn-primary btn-block border-0 py-3">Логин</button>
+                <button type="submit" id="login" class="btn btn-primary btn-block border-0 py-3">Login</button>
             </form>
         </div>
     </div>

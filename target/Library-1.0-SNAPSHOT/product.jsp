@@ -26,9 +26,9 @@
                     cache: false,
                     success: function (data) {
                         if (data === 'True') {
-                            alert("Успешно добавили!");
+                            alert("Successfully added!");
                         } else {
-                            alert("Ошибка!");
+                            alert("Something went wrong!");
                         }
                     }
                 });
@@ -85,7 +85,7 @@
                         </button>
                     </div>
                 </div>
-                <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                <a href="addtocart?product_id=<c:out value="${product.id}"/>" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</a>
             </div>
             <div class="d-flex pt-2">
                 <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>

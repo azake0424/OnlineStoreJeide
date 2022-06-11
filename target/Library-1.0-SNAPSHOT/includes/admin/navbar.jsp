@@ -1,55 +1,51 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: zangar
-  Date: 09.06.2022
-  Time: 1:26
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<nav class="navbar navbar-expand-xl">
-    <div class="container h-100">
-        <a class="navbar-brand" href="index.html">
-            <h1 class="tm-site-title mb-0">Product Admin</h1>
-        </a>
-        <button
-                class="navbar-toggler ml-auto mr-0"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-        >
-            <i class="fas fa-bars tm-nav-icon"></i>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto h-100">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">
-                        <i class="fas fa-tachometer-alt"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/products">
-                        <i class="fas fa-shopping-cart"></i> Products
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="accounts.html">
-                        <i class="far fa-user"></i> Accounts
-                    </a>
-                </li>
-
-            </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link d-block" href="/admin/logout">
-                        Admin, <b>Logout</b>
-                    </a>
-                </li>
-            </ul>
+<div class="container-fluid">
+    <div class="row bg-secondary py-2 px-xl-5">
+        <div class="col-lg-6 d-none d-lg-block">
+        </div>
+        <div class="col-lg-6 text-center text-lg-right">
+            <div class="d-inline-flex align-items-center">
+                <a class="text-dark px-2" href="https://www.facebook.com/">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a class="text-dark px-2" href="https://twitter.com/?lang=ru">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a class="text-dark px-2" href="https://ru.linkedin.com/">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a class="text-dark px-2" href="https://www.instagram.com/">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a class="text-dark pl-2" href="https://www.youtube.com/">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
         </div>
     </div>
-</nav>
+</div>
+
+<div class="container-fluid">
+    <div class="row border-top px-xl-5">
+
+        <a href="/" class="text-decoration-none">
+            <div style="position: relative;margin-top: 10px"><img src="../images/jeide.png" width="150"></div>
+        </a>
+
+        <div class="col-lg-9">
+            <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav mr-auto py-0">
+                        <a href="/admin/products" class="nav-item nav-link">Products</a>
+                    </div>
+                    <div class="navbar-nav ml-auto py-0">
+                            <a href="/admin/logout" class="nav-item nav-link">Admin, <b>Logout</b></a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+<hr>
+<br>
+
